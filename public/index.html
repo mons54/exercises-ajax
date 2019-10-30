@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mt-5">
+            Remplacer ce text par le contenu du fichier "ajax/content.html".
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8 mt-2">
+            Remplacer ce text par le contenu fichier "ajax/delay5.html" dans <span data-timer>5</span> secondes.
+          </div>
+          <div class="col-md-4 mt-2">
+            <p>Au clique du boutton, remplacer ce text et le boutton par le contenu fichier "ajax/info.html".</p>
+            <button type="button" class="btn btn-primary">Afficher les infos</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mt-2">
+            <form class="bg-light p-2 rounded" onsubmit="event.preventDefault()">
+              <div class="form-group">
+                <label for="inputName">Nom</label>
+                <input type="text" class="form-control" id="inputName" aria-describedby="emailHelp" placeholder="Entrer un nom">
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="sex" id="sex1" value="1" checked>
+                <label class="form-check-label" for="sex1">
+                  Homme
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="sex" id="sex2" value="2">
+                <label class="form-check-label" for="sex2">
+                  Femme
+                </label>
+              </div>
+              <div class="form-group mt-2">
+                <label for="formControlSelect1">Type</label>
+                <select class="form-control" id="formControlSelect1" name="type">
+                  <option value="1">FrontEnd</option>
+                  <option value="2">BackEnd</option>
+                  <option value="3">FullStack</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Envoyer</button>
+            </form>
+          </div>
+          <div class="col-md-6 mt-2" id="user">
+            Poster le formulaire sur "/user" et afficher la réponse ici.
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mt-2">
+            <div class="bg-light p-2 rounded">
+              <h3>Heure</h3>
+              <div class="time">
+                <div class="units" data-hours></div>
+                <div class="separator">:</div>
+                <div class="units" data-minutes></div>
+                <div class="separator">:</div>
+                <div class="units" data-secondes></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-2">
+            <div class="bg-light p-2 rounded">
+              <h3>Heure dans une minute</h3>
+              <div class="time">
+                <div class="units"></div>
+                <div class="separator">:</div>
+                <div class="units"></div>
+                <div class="separator">:</div>
+                <div class="units"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+      document.querySelectorAll('[data-timer]').forEach((element) => {
+        setInterval(() => {
+          const value = parseInt(element.textContent) - 1
+          element.textContent = value
+        }, 1000)
+      });
+
+      const data = localStorage.getItem('hours')
+
+      let hours, minutes, secondes
+
+      if (data) {
+        hours = 23
+        minutes = 59
+        secondes = 59
+        localStorage.removeItem('hours')
+      } else {
+        hours = Math.floor(Math.random() * 23) + 1
+        minutes = Math.floor(Math.random() * 59) + 1
+        secondes = Math.floor(Math.random() * 59) + 1
+        localStorage.setItem('hours', `${hours}:${minutes}:${secondes}`)
+      }
+
+      document.querySelector('[data-hours]').textContent = hours < 10 ? '0' + hours : hours
+      document.querySelector('[data-minutes]').textContent = minutes < 10 ? '0' + minutes : minutes
+      document.querySelector('[data-secondes]').textContent = secondes < 10 ? '0' + secondes : secondes
+    </script>
+  </body>
+</html>
